@@ -1,0 +1,19 @@
+{% extends "start.html" %}
+
+{% block content %}
+<body>
+  <h1 class="title">
+    Setlist {{ setlist.set_name }}
+  </h1>
+  
+  <div>
+    <table>
+        {% for song in songs %}
+      <ul>
+        <li>{{ loop.index }} <strong>Song</strong> {{ song.song_name }} <strong>Artist</strong> {{ song.song_artist }} <strong>Album</strong> {{ song.song_album }} <strong>Key</strong> {{ song.song_key }} <strong>Tempo</strong> {{ song.song_tempo }} <strong>Performance Key</strong> {{ song.song_performance_key }}</li>
+      </ul>
+        {% endfor %}
+    </table>
+  </div>
+</body>  
+{% endblock %}

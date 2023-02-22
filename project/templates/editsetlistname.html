@@ -1,0 +1,38 @@
+{% extends "start.html" %}
+
+{% block content %}
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          <h3>
+            Edit Setlist {{ name }} 
+          </h3>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div class='div1' style='color: black; background: lightpink; border: 1px solid darkred' id='div1'>
+            {{ messages[0] }} <a href="/editsetlistname"></a>
+          </div>
+          {% endif %}
+          {% endwith %}
+          <div>
+            <form class="form-signup" id="contactForm" action="{{ url_for('main.editsetlistname', name=name, id=id) }}" method='POST'>
+              <div style='padding-bottom:25px' >
+                <input autocomplete='off' autofocus id='newsetname' name='newsetname' placeholder='New Name' type='text'>
+              </div>
+              <div style="padding-bottom:300px">
+                <button class="btn btn-primary" type='submit' >Update Name</button>
+              <div style='padding-top:25px; padding-bottom:300px'>     
+                <a class="btn btn-secondary" href="{{ url_for('main.viewsetlists') }}">Back</a> 
+              </div>  
+              </div>
+            </form>
+          </div>      
+        </div>      
+      </div>      
+    </div>      
+  </section>      
+</body>  
+{% endblock %}

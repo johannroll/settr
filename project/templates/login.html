@@ -1,0 +1,54 @@
+{% extends "start.html" %} {% block content %}
+<section class="signup-section" id="signup">
+  <div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5">
+      <div class="col-md-10 col-lg-8 mx-auto text-center">
+        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+        <h3 class="title">Login</h3>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <div class="notification is-danger">{{ messages[0] }}</div>
+        {% endif %} {% endwith %}
+        <form
+          class="form-signup"
+          id="contactForm"
+          method="POST"
+          action="/login"
+        >
+          <div class="field">
+            <div class="control">
+              <input
+                class="input is-large"
+                type="email"
+                name="email"
+                placeholder="Email"
+                autofocus
+              />
+            </div>
+          </div>
+
+          <div class="field" style="padding-bottom: 25px">
+            <div class="control">
+              <input
+                class="input is-large"
+                type="password"
+                name="password"
+                placeholder="Password"
+              />
+            </div>
+          </div>
+          <div class="col-auto">
+            <button class="btn btn-primary">Login</button>
+          </div>
+          <div class="field" style="padding-top: 25px">
+            <div style="padding-bottom: 450px">
+              <a href="{{ url_for('auth.reset') }}" class="btn btn-dark">
+                Reset Password
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+# Settr
+#### Video Demo:
+#### Description:
+
+The idea behind Settr is to create setlists for musicians containing all the relevant information they might require to prep for a specific gig or live performance.
+As a gigging musician myself, I am frequently frustrated when receiving a setlist from an artist or band that sometimes only contains the song names. This always leads me to bother the artist/band
+with a million questions! Is it the orginal verion of the song, a cover, a live performance, from which album, in what key are we playing the song? Settr retrieves all the information a gigging musician might need in prepping
+for a live performance from the Spotify Api.
+
+A user first needs to login or signup. If a user might forget their password they can reset their password through the reset password button under the login route. The user can then create a new setlist or view previously created setlists in the nav-bar menu. Songs can then be added to the new setlist via the search route that returns the top 5 results for 
+the user's query, or add to existing setlists through edit setlists. The search returns the song name, artist, album, song key, song tempo in beats per minute, and the time signature. All the information a musician might need.  Once songs have been added, 
+a table is shown of the current setlist and setlist order. The user can then update the live performane key by referencing the audio example, or delete any unwanted songs.
+The user can also update the setlist order by dragging and dropping songs. The current setlist can then be shared where an indexed view of the setlist is shown. If the user is satisfied with the setlist they can mail the setlist. The user will then be prompted to 
+add recipient email address/addresses to share the current setlist with. They can then send the email that renders the setlist as a pdf attachment with a setlist table and name containing all the relevant information to prep for a live performance.   

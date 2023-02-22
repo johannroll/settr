@@ -1,0 +1,40 @@
+{% extends "start.html" %}
+
+{% block content %}
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          <h3>
+            Setlists
+          </h3>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div style="padding-bottom:20px">
+              <div  id="div1"  style='color: black; background: lightpink; border: 1px solid darkred'  class="div1">
+                  {{ messages[0] }} <a href="{{ url_for('main.search', name=setlist) }}"></a>
+              </div>
+          </div>
+          {% endif %}
+          {% endwith %}
+          <div>
+            {% for setlist in setlists %}
+            <ul style="list-style:none; padding-right: 35px; padding-bottom:10px">
+              <li style="padding-top:20px; padding-bottom:20px"><h4>{{ setlist.set_name }} </h4></li>
+                <a class="btn btn-primary" href="{{ url_for('main.songsinset', name=setlist.set_name |urlencode |replace("/", "%2f")) }}" style="width:205px">View Set</a>        
+                <a class="btn btn-primary" href="{{ url_for('main.editsetlistname', id=setlist.set_id) }}" style="width:205px">Edit Name</a>
+                <a class="btn btn-primary" href="{{ url_for('main.deletesetlist', id=setlist.set_id)  }}" style="width:205px" onclick="return confirm('Delete Setlist?')">Delete</a> 
+            </ul>
+            {% endfor %} 
+            <div style="padding-top:20px; padding-bottom:650px">
+              <a href="/newsetlist" class="btn btn-primary" >Create New Setlist</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>  
+{% endblock %}

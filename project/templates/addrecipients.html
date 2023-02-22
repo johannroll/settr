@@ -1,0 +1,72 @@
+{% extends "start.html" %}
+
+{% block content %}
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          <div id="sndBtn" class="sndBtn">
+            <h2 class="title" style="padding-bottom: 20px">
+              Add recipients for Setlist {{ setlist.set_name }}
+            </h2>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="notification is-danger" >
+                  {{ messages[0] }} <a href="{{ url_for('main.addrecipients') }}"></a>
+              </div>
+            {% endif %}
+            {% endwith %}
+            <div >
+              <form class="form-signup" id="contactForm" action="{{ url_for('main.addrecipients', id=setlist.set_id, name=setlist.set_name |urlencode |replace("/", "%2f"), ) }}" method='POST'>
+                  <div style="padding-bottom:25px">
+                      <input autocomplete='off' autofocus id='recipient' name='recipient' placeholder='Email address' type='text' required>
+                  </div>
+                  <button class="btn btn-primary" type='submit'>Add</button>
+              </form>
+              <div style="padding-top:25px">
+                <h2 class="title">
+                  Recipients 
+                </h2>
+              </div>
+                <div>
+                  <table>
+                  {% for recipient in recipients %}
+                    <ul style="list-style:none; padding-right: 35px">
+                      <li > {{ recipient.email_add }}</li>
+                      <a href="{{ url_for('main.removerecipient', id=recipient.email_id, name=setlist.set_name |urlencode |replace("/", "%2f"))  }}" style='text-shadow: 2px 2px 4px black'  >Remove</a>
+                    </ul>
+                  {% endfor %} 
+                  </table>
+                </div>
+                <div style="padding-top: 25px" > 
+                    <a href="{{ url_for('main.sharesetlist', id=setlist.set_id, user=setlist.set_name)  }}" ><button class="btn btn-primary" onclick="hidebutton()" >Send Setlist</button></a>
+                </div>
+          </div>
+        </div>
+        <div class="col-md-10 col-lg-8 mx-auto text-center" >
+          <div class="form-signup">
+            <p style="padding-top: 25px">
+              <center style="padding-bottom:650px"><button disabled class="progress-bar progress-bar-striped progress-bar-animated"  id="sndBtn2" style="display: none">Sending Setlist</button></center>
+            </p>
+          </div>
+        </div>              
+      </div>      
+    </div>      
+  </section>      
+</body>
+<script type="text/javascript">
+  function hidebutton() {
+    var x = document.getElementById("sndBtn");
+    var y = document.getElementById("sndBtn2");
+  
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+      y.style.display = "block";
+    }
+  }
+</script>  
+{% endblock %}

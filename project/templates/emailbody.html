@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Settr Setlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+{% block content %} 
+    <style>
+        .styled-table {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1.2em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            text-align: left;
+        }
+
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+        }
+       
+        .styled-table tbody tr {
+            border-bottom: 2px solid #dddddd;
+        }
+        
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 3px solid #009879;
+        }
+
+        .styled-table tbody tr.active-row {
+            font-weight: bold;
+            color: #009879;
+        }
+   </style>
+</head>
+<body>
+    <div>
+        <div>
+            <div>
+                <img width='23%' src="https://lh3.googleusercontent.com/fife/AAbDypBhoSm-ScA1sJNCdAyB2Fko_14oa5TmwNiuxq70_kAIBdIijKROXJ0bAPuHyMHiVYDZqDYWGZM25YMSNYFTIVV5t6isyNBIfLL6SvH2ODeUFNBqRJwMjE_DjL9FVmLoi57ryImMAuM15dhon2mjaWxxoMy8D0uhmwmkN16blWX_J4zm3cJEGX32xZtDNMp3hYBQnIKmJ8LzUGiHDx8GnUoI9andfPxsIQyDtJDtYzhDlkd1Fx4Gn2Gw2s5DX1vPdJjsp8VaG2H7NhGgdhu_4xWdaIAzw7579c-iI1f6FSWnFF3HlORYUBBBHmDRuF0M4TvTECaob4MEed-loLlj4CH9TCetKfPS1PYF6-ozWGHueMYTywAjfvL4bRwnlI6QeAz4fRYY-bEw6MOOYBWBlgNQwYalrqwl-eSYxIKIXULSNuCwc20bVgh9FKpsE3ITrSLHfRX975gh5Rn0KqDbwOFlRgJcbxSzNwTEJfT5Dy-S7gah-w7UtaazfL9HFSC_ZQ2Tufx4yQtYmnuGuoaWQ-mh-9falLUfgfhfDX6xymtM_p4CcvBTPaihNsn9rsUgzjPpVynxJC0pzCTb1w_W6S9i4vzyDAIGXmcdSVCHdwHPP4NWe-nXNI9QyTenR27Mtu_2oxB-fo6ZrIeqZqf-9NNPcOduj-1yaouQ2-pURpk83zljgAJjvtZuWIsczjRoqgP18oX2vh6I5amsYgEO3d9rZcbo8RoDene9-DahO7wKe181jSACeMk5n3hTvUVBmT46_qatCFuXtbT5kHk-ztqK7eChFcW2gyIiptSFHkXxDhM46S_3owX8tQnVbieyOnRH1Xeq6Da-FyhfKCcj_VRzgI_WJbWnEU5elsKsS3OSoMXZAsLUYKg64LuTx75ugF0qXm9wB9MHaWggNrHo8ohan93QEwmf_xgfno7LTSsi0K_LQ8AFqMq1Y07BtEznkynI-nymDwVBwpzFQuEHAqvQVASA5gpYcmezwsYdvwSnfYGCpsHwyPh4_PTZF5fIXGjx5-xbtYwhk_gJz969KxXISW3rEebh498hGWTpVXyMlrc4n0nR775y65CGG_Pp8TmkXFipz2meWfhkHH1xsktU5MxnYfKS72QbZofmc92OlGz70WdVzXP5WokXgDzEZR_mJNQo9XZ5AR6cNFDNDwfRr93jd_vrYfwNsGsUBz7dgQuT5Vzq6djx_FXRi5yFi6OKe9JYFUFIQwW6Gg13bTnDNSbdsilOxYNpD4q7lM4ngnWb4lpVfzM-nNMdvilg30wSaz-gPrLwncYoVHhbivhwWTRRbaU6x8qyVhRGZSYGhlEx_vsWjN3dnsE92Nc11105rfkRHLmpaYFX-zmcVNbUh4zgDor2e6KLfw_kxKaQ_9URxnugPV6GDxZArwRDxKKb8au70VPVaENXG4VUHv-G0MjH2wTqBXZnKt0Mtw7c2S7eno_OQB9SkKAcCJIexXYmi2zBc_ovtCGeS0sem-HOL4GD6YGXm_aKNtFjssufvzwAn6XBLoCEXLb-=w1860-h899"> 
+            </div>
+            <h2 style='font-family: sans-serif'>Find attached your setlist from {{ user.name }}.</h2>
+        </div>
+    </div>    
+</body>
+{% endblock %} 
+</html>
+

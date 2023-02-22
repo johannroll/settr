@@ -1,0 +1,58 @@
+{% extends "start.html" %}
+
+{% block content %}
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-lg-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          <h3 class="title" style='padding-bottom:20px'>
+            Setlist {{ setlist.set_name }}
+          </h3>
+          <div class="container px-4 px-lg-5">
+            <table>
+              <thead class="bg" style='padding-bottom: 15px'>
+                <tr style="height: 45px; background-color: #6AA19D; border: 1px solid #6AA19D; padding: 1.2rem; cursor: move; color:white">
+                  <th style="width:40px">No</th>
+                  <th style="width:215px">Name</th>
+                  <th style="width:215px">Artist</th>
+                  <th style="width:215px">Album</th>
+                  <th style="width:80px">Tempo</th>
+                  <th style="width:70px">Meter</th>
+                  <th style="width:70px">Key</th>
+                  <th style="width:180px">Performance Key</th>                
+                </tr>
+              </thead>
+              <tbody>
+              {% for song in songs %}
+                <tr class="draggable" draggable="true" style="background-color: white; border: 1px solid #D3D3D3; padding: 1rem; cursor: move">
+                  <td style='padding-bottom:20px'>{{ loop.index }}</td>
+                  <td style='padding-bottom:20px'>{{ song.song_name }}</td>
+                  <td style='padding-bottom:20px'>{{ song.song_artist }}</td>
+                  <td style='padding-bottom:20px'>{{ song.song_album }}</td>
+                  <td style='padding-bottom:20px'>{{ song.song_tempo }}</td>
+                  <td style='padding-bottom:20px'>{{ song.song_sig }}/4</td>
+                  {% if song.song_mode == '1' %}
+                  <td style='padding-bottom: 20px' >{{ song.song_key }}</td>
+                  {% else %}
+                  <td style='padding-bottom: 20px' >{{ song.song_key }}m</td>
+                  {% endif %}
+                  <td style='padding-bottom:20px'>{{ song.song_performance_key }}</td>
+                </tr>
+              </tbody>  
+              {% endfor %}
+            </table >
+            <div style='padding-top:25px; padding-bottom:600px'>     
+              <a style="width:222px" class="btn btn-primary" href="{{ url_for('main.addrecipients', setlist=setlist, name=setlist.set_name |urlencode |replace("/", "%2f"), id=setlist.set_id) }}">Mail Setlist</a>
+              <a style="width:222px" class="btn btn-primary" href="{{ url_for('main.search', name=setlist.set_name |urlencode |replace("/", "%2f"), setlist=setlist ) }}">Edit Setlist</a> 
+              <a style="width:222px" class="btn btn-primary" href="{{ url_for('main.viewsetlists', id=setlist.set_id) }}">Back To Setlists</a>
+              <a style="width:222px" class="btn btn-primary" href="{{ url_for('main.deletesetlist', id=setlist.set_id)  }}" onclick="return confirm('Delete Setlist?')">Delete Setlist</a>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>  
+{% endblock %}

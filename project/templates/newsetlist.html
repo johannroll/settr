@@ -1,0 +1,36 @@
+{% extends "start.html" %} {% block content %}
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          <h3 class="title">New Setlist</h3>
+          {% with messages = get_flashed_messages() %} {% if messages %}
+          <div class="notification is-danger">
+            {{ messages[0] }} <a href="{{ url_for('main.newsetlist') }}"></a>
+          </div>
+          {% endif %} {% endwith %}
+          <div>
+            <form
+              class="form-signup"
+              id="contactForm"
+              action="/newsetlist"
+              method="POST"
+            >
+              <div style="padding-bottom: 25px">
+                <input autocomplete='off' autofocus id='setlist' name="{{
+                'setlist' |urlencode |replace("/", "%2f") }}"
+                placeholder='Setlist Name' type='text' required>
+              </div>
+              <div class="col-auto" style="padding-bottom: 550px">
+                <button class="btn btn-primary" type="submit">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+{% endblock %}

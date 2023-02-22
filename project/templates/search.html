@@ -1,0 +1,147 @@
+{% extends "start.html" %}
+
+{% block head %}
+<style>
+  .draggable.dragging {
+    opacity: .5;
+  }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-lg-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div  id="div1"  style='color: black; background: lightpink; border: 1px solid darkred'  class="div1">
+            {{ messages[0] }} <a href="{{ url_for('main.search', name=setlist) }}"></a>
+          </div>
+          {% endif %}
+          {% endwith %}
+          <div > <id="my-data" data-name="{{setlist.set_id}}">
+            <h3>Enter song title to add to {{ setlist.set_name }}</h3>
+          </div>
+          <div>
+            <form class="form-signup" id="contactForm" action="{{ url_for('main.search', name=setlist.set_name |urlencode |replace("/", "%2f")) }}" method='POST'>
+              <div style='padding-bottom:25px'>
+                  <input autocomplete='off' id='search' name='search' placeholder='Title/Artist' type='text' required>
+              </div>
+              <div style='padding-bottom:25px' class="col-auto"><button class="btn btn-primary" type='submit' >Search</button></div>
+            </form>
+          </div>
+          <div>
+            <table>
+              {% if results %}
+              <thead class="bg">
+                <tr>
+                  <th style="width:110px">Img</th>
+                  <th style="width:160px">Artist</th>
+                  <th style="width:200px">Name</th>
+                  <th style="width:250px">Album</th>
+                  <th style="width:30px">Sig</th>
+                  <th style="width:55px">Key</th>
+                  <th style="width:80px">Audio Sample</th>
+                  <th style="width:105px">Add Song</th>                      
+                </tr>
+              </thead>
+              {% endif %}
+              <tbody>  
+                {% for result in results %}
+                <tr >
+                  <td style='padding-bottom:25px'><img style='box-shadow: 2px 2px 5px; border-radius: 8%' src={{ results[result]['cover_img'] }} width="90%" ></td>
+                  <td>{{ results[result]['artist'] }}</td>
+                  <td>{{ results[result]['name'] }} </td>
+                  <td>{{ results[result]['album'] }}</td>
+                  <td>{{ results[result]['sig'] }}/4</td>
+                  {% if results[result]['minor'] == 1 %}
+                  <td>{{ results[result]['key'] }}</td>
+                  {% else %}
+                  <td>{{ results[result]['key'] }}m</td>
+                  {% endif %}
+                  <td><audio controls style="width:150px">
+                    <source src="{{ results[result]['preview'] }}" type="audio/ogg">
+                    <source src="{{ results[result]['preview'] }}" type="audio/mpeg">
+                  </audio></td>
+                  <td><a href="{{ url_for('main.addsongs', set_name=setlist.set_name |urlencode |replace("/", "%2f"), name=results[result]['name'] |urlencode |replace("/", "%2f") , artist=results[result]['artist'] |urlencode |replace("/", "%2f"), album=results[result]['album'] |urlencode |replace("/", "%2f"), key=results[result]['key'], tempo=results[result]['bpm']|round|int, sig=results[result]['sig'], mode=results[result]['minor'], preview=results[result]['preview']) }}" style='text-shadow: 2px 2px 4px black' ><strong>ADD SONG</strong> </a></td>
+                </tr>
+              </tbody>
+              {% endfor %}
+              </table>
+          </div>
+          <div>
+
+            {% if song_count == 0 %}
+            <div style="padding-bottom: 600px"></div>
+            {% endif %}
+            {% if song_count > 0 %}
+            <h2> Current Setlist {{ setlist.set_name }}</h2>
+            <input type="hidden" name="setlist_idx" id="setlist_idx" value='{{ setlist.set_id| safe }}'>
+          </div>
+          <div >      
+            <table >
+              <thead >
+                <tr style=" height: 45px; background-color: #6AA19D; border: 1px solid #6AA19D; padding: 1.2rem; cursor: move; color:white">
+                  <th style="width:170px">Song</th>
+                  <th style="width:170px">Artist</th>
+                  <th style="width:170px">Album</th>
+                  <th style="width:40px">Key</th>
+                  <th style="width:75px">Tempo</th>
+                  <th style="width:30px">Meter</th>
+                  <th style="width:80px">Audio Sample</th>
+                  <th style="width:170px">Performance Key</th>
+                  <th style="width:100px">Delete</th>                      
+                </tr>
+              </thead>
+              <div id="list">
+                <div id="response"> </div> 
+                  <tbody id="sortable" > 
+                    {% for song in songs %}
+                      <tr id="{{ song.song_id}}" class="reorder" style="background-color: white; border: 1px solid #D3D3D3; padding: 1rem; cursor: move"> <!--class="reorder"-->
+                        <td style='padding-bottom: 20px'>{{ song.song_name }}</td>
+                        <td style='padding-bottom: 20px' >{{ song.song_artist }}</td>
+                        <td style='padding-bottom: 20px' >{{ song.song_album }}</td>
+                        {% if song.song_mode == '1' %}
+                        <td style='padding-bottom: 20px' >{{ song.song_key }}</td>
+                        {% else %}
+                        <td style='padding-bottom: 20px' >{{ song.song_key }}m</td>
+                        {% endif %}
+                        <td style='padding-bottom: 20px' >{{ song.song_tempo }}</td>
+                        <td style='padding-bottom: 20px' >{{ song.song_sig }}/4</td>
+                        <td style='padding-bottom: 20px'  ><audio controls style="width:150px; border-radius: 26px; box-shadow: 2px 2px 5px pink">
+                          <source src="{{ song.song_preview }}" type="audio/ogg">
+                          <source src="{{ song.song_preview }}" type="audio/mpeg">
+                          </audio>
+                        </td>
+                        <td style='padding-bottom: 20px' >{{ song.song_performance_key }}
+                        <form  action="{{ url_for('main.addperformancekey', id=song.song_id) }}" method='POST'>
+                        <input  autocomplete='off' id='performkey' name='performkey' placeholder='Key' type='text' style="width:47px; border-radius: 17px; box-shadow: 2px 2px 5px orange;  text-align: center; background-color: white"> <button style=' border-radius: 17px; box-shadow: 2px 2px 5px orange' type='submit' id="prfrm">Add</button>
+                        </form>
+                        </td>
+                        <td style='padding-bottom: 20px'><a class="btn btn-secondary" href="{{ url_for('main.deletesongs', id=song.song_id) }}" style= 'height: 55px; border-radius: 30px' ><font style="color: white">Delete</font></a></td>
+                        <div class="clear"></div> 
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+              </div>
+            </table>
+            <div style='padding-top:25px; padding-bottom:350px'>           
+              <div style='padding-bottom:20px' class="col-auto">
+                <a class="btn btn-primary" href="{{ url_for('main.songsinset', name=setlist.set_name |urlencode |replace("/", "%2f")) }}" style="width:200px" >Share Setlist</a> 
+                <a class="btn btn-primary" href="{{ url_for('main.viewsetlists') }}" style="width:200px" >Edit Setlist</a>
+              </div>
+            </div>
+            {% endif %}
+          </div>     
+        </div>     
+      </div>           
+    </div>
+  </section>
+</body>
+
+{% endblock %}

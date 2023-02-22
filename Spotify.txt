@@ -1,0 +1,7 @@
+export username='settr.setlistcreation@gmail.com'
+export password-'mbldxbqvgkutrbbk'
+export Client_ID='11697d69591d4f35ac05ab7ba430d10c'
+export Client_Secret='b20c3b36dc614d6ea5bfe4c9e0ff7d35'
+
+CCS
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" /> 
