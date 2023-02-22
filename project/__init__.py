@@ -12,8 +12,9 @@ def create_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'qwerty qwerty'
-    app.config['SQLALCHEMY_DATABASE_URI'] = \
-        'sqlite:///' + os.path.join(basedir, 'database.db')
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ylpztkaulixnng:85c565a29e6a5a8bd8c5429e2e7a708924aadbf29cf15db5c2ce6a1cd65ac665@ec2-54-158-247-210.compute-1.amazonaws.com:5432/d1s0drjdu1pq4a'
+    # \
+    #     'sqlite:///' + os.path.join(basedir, 'database.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     
