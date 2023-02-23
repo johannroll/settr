@@ -1,24 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Settr - Setlist Creation</title>
+
+    <script
+      src="https://use.fontawesome.com/releases/v6.1.0/js/all.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Varela+Round"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet"
+    />
+
+    <link
+      href="{{ url_for('static', filename='startstyles.css') }}"
+      rel="stylesheet"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script type="text/javascript">
+      window.setTimeout(function () {
+        $(".div1").fadeOut("slow");
+      }, 1000);
+    </script>
+  </head>
 {% extends "start.html" %}
 
 {% block content %}
-<section class="signup-section" id="signup">
-  <div class="container px-4 px-lg-5">
-    <div class="row gx-4 gx-lg-5">
-      <div class="col-md-10 col-lg-8 mx-auto text-center">
-        <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }} <a href="{{ url_for('main.index') }}"></a>
+<body>
+  <section class="signup-section" id="signup">
+    <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+          <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div class="notification is-danger">
+              {{ messages[0] }} <a href="{{ url_for('main.index') }}"></a>
+          </div>
+          <div style="max-width: 0; max-height: 0; overflow: hidden;">
+            <input autofocus="true" />
+          </div>
+          {% endif %}
+          {% endwith %}
+          <div>
         </div>
-        <div style="max-width: 0; max-height: 0; overflow: hidden;">
-          <input autofocus="true" />
-        </div>
-        {% endif %}
-        {% endwith %}
-        <div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</body>
 {% endblock %}
