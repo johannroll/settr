@@ -14,8 +14,8 @@ from . import db
 
 
 main = Blueprint('main', __name__)
-gmail.username = os.getenv("username")
-gmail.password = os.getenv("password")
+# gmail.username = os.getenv("username")
+# gmail.password = os.getenv("password")
 
 
 @main.route('/')
@@ -346,8 +346,8 @@ def deletesongs(id):
 
 class spotify_data():
     def __init__(self,name):
-        os.environ['SPOTIPY_CLIENT_ID'] = os.getenv("Client_ID")  
-        os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv("Client_Secret") 
+        # os.environ['SPOTIPY_CLIENT_ID'] = os.getenv("Client_ID")  
+        # os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv("Client_Secret") 
         search_str = name
         sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
         self.result = sp.search(search_str,5)
