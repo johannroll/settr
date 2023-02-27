@@ -9,8 +9,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 from redmail import gmail
 from .models import User, Setlist, Song, Email
 from . import db
-from dotenv import load_dotenv
-load_dotenv()
 
 
 main = Blueprint('main', __name__)
