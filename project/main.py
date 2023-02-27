@@ -14,24 +14,19 @@ load_dotenv()
 
 
 main = Blueprint('main', __name__)
-gmail.username = os.getenv("username")
-gmail.password = os.getenv("password")
+gmail.username = os.environ['username']
+gmail.password = os.environ['password']
 
 
-# @main.route('/')
-# def index():
-#     return render_template('start.html', isStart=True)
+@main.route('/')
+def start():
+    return render_template('index.html', isStart=True)
 
 
 @main.route('/profile')
 @login_required
 def profile():
     return render_template('Profile.html', name=current_user.name)
-
-
-@main.route('/')
-def start():
-    return render_template('index.html', isStart=True)
 
 
 @main.route('/newsetlist', methods=['GET', 'POST'])
@@ -346,8 +341,8 @@ def deletesongs(id):
 
 class spotify_data():
     def __init__(self,name):
-        os.environ['SPOTIPY_CLIENT_ID'] = os.getenv("Client_ID")  
-        os.environ['SPOTIPY_CLIENT_SECRET'] = os.getenv("Client_Secret") 
+        os.environ['SPOTIPY_CLIENT_ID']        #os.getenv("Client_ID")  
+        os.environ['SPOTIPY_CLIENT_SECRET']      #os.getenv("Client_Secret") 
         search_str = name
         sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
         self.result = sp.search(search_str,5)
