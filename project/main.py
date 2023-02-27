@@ -18,9 +18,9 @@ gmail.username = os.getenv("username")
 gmail.password = os.getenv("password")
 
 
-@main.route('/')
-def index():
-    return render_template('start.html', isStart=True)
+# @main.route('/')
+# def index():
+#     return render_template('start.html', isStart=True)
 
 
 @main.route('/profile')
@@ -29,9 +29,9 @@ def profile():
     return render_template('Profile.html', name=current_user.name)
 
 
-@main.route('/start')
+@main.route('/')
 def start():
-    return render_template('start.html', isStart=True)
+    return render_template('index.html', isStart=True)
 
 
 @main.route('/newsetlist', methods=['GET', 'POST'])
@@ -163,7 +163,7 @@ def sharesetlist(id):
         )
 
     flash('Setlist Sent!')
-    return render_template('start.html', isStart=True)
+    return render_template('index.html', isStart=True)
     
     
 @main.route('/deletesetlist/<int:id>')
