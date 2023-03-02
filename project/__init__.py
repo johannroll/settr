@@ -1,10 +1,15 @@
+import logging
 import os
+import sqlalchemy as sa
+from logging.handlers import RotatingFileHandler
+from click import echo
+from flask.logging import default_handler
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
-from dotenv import load_dotenv
-load_dotenv()
+# from dotenv import load_dotenv
+# load_dotenv()
 
 db = SQLAlchemy()
 
@@ -12,8 +17,11 @@ def create_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'qwerty qwerty'
-    app.config['SQLALCHEMY_DATABASE_URI'] = \
-        'sqlite:///' + os.path.join(basedir, 'database.db')
+    if os.getenv('DATABASE_URL'): 
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL').replace("postgres://", "postgresql://", 1)
+    else: 
+        app.config['SQLALCHEMY_DATABASE_URI'] = \
+            'sqlite:///' + os.path.join(basedir, 'database.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
     
@@ -35,7 +43,39 @@ def create_app():
     def load_user(id):
         return User.query.get(int(id))
     
+    engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
+    inspector = sa.inspect(engine)
+    if not inspector.has_table("users"):
+        with app.app_context():
+            db.drop_all()
+            db.create_all()
+            app.logger.info('Initialized the database!')
+    else:
+        app.logger.info('Database already contains the users table.')
+
+    
     return app
+
+def configure_logging(app):
+    # Logging Configuration
+    if app.config['LOG_WITH_GUNICORN']:
+        gunicorn_error_logger = logging.getLogger('gunicorn.error')
+        app.logger.handlers.extend(gunicorn_error_logger.handlers)
+        app.logger.setLevel(logging.DEBUG)
+    else:
+        file_handler = RotatingFileHandler('instance/flask-user-management.log',
+                                           maxBytes=16384,
+                                           backupCount=20)
+        file_formatter = logging.Formatter('%(asctime)s %(levelname)s %(threadName)s-%(thread)d: %(message)s [in %(filename)s:%(lineno)d]')
+        file_handler.setFormatter(file_formatter)
+        file_handler.setLevel(logging.INFO)
+        app.logger.addHandler(file_handler)
+
+    # Remove the default logger configured by Flask
+    app.logger.removeHandler(default_handler)
+
+    app.logger.info('Starting the Flask User Management App...')
+
 
 def create_database(app):
     if not path.exists('project/' + 'database.db'):

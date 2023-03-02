@@ -12,6 +12,7 @@ from . import db
 
 
 main = Blueprint('main', __name__)
+    
 gmail.username = os.environ['username']
 gmail.password = os.environ['password']
 
